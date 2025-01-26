@@ -1,14 +1,70 @@
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainPage from '../../pages/main-page/main-page';
+import CurrentWeatherPage from '../../pages/current-weather-page/current-weather-page';
+import { useEffect, useState } from 'react';
+import { fetchWeatherByCoordinates, WeatherResponse } from '../../api/current-weather-api/current-weather-api';
 
 function App() {
+  const [latitude, setLatitude] = useState<number | null>(null);
+  const [longitude, setLongitude] = useState<number | null>(null);
+  const [weather, setWeather] = useState<WeatherResponse | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const getUserLocation = () => {
+      if (!navigator.geolocation) {
+        setError('Геолокация не поддерживается вашим браузером');
+        setLoading(false);
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const coords = position.coords;
+          setLatitude(coords.latitude);
+          setLongitude(coords.longitude);
+
+          fetchWeatherByCoordinates(coords.latitude, coords.longitude)
+            .then((weatherData) => {
+              setWeather(weatherData);
+            })
+            .catch((err) => {
+              setError(err instanceof Error ? err.message : 'Ошибка загрузки данных о погоде.');
+            })
+            .finally(() => {
+              setLoading(false);
+            });
+        },
+        (err) => {
+          setError(err.message || 'Не удалось получить местоположение пользователя.');
+          setLoading(false);
+        }
+      );
+    };
+
+    getUserLocation();
+  }, []);
+
+  if (loading) {
+    return <p>Загрузка данных...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
+
+  if (!latitude || !longitude || !weather) {
+    return <p>Нет данных для отображения.</p>;
+  }
+
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
-          <Route path={''} element={<MainPage />}/>
-
+          <Route path={'/'} element={<MainPage weather={weather} />}/>
+          <Route path="/weather/:city" element={<CurrentWeatherPage weather={weather}/>} />
         </Routes>
       </BrowserRouter>
     </HelmetProvider>
@@ -16,3 +72,4 @@ function App() {
 }
 
 export default App;
+

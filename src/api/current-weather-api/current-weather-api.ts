@@ -1,4 +1,6 @@
-interface WeatherResponse {
+import { API_KEY, BASE_URL } from '../../utils/const';
+
+export interface WeatherResponse {
   weather: { description: string; icon: string }[];
   main: { temp: number; humidity: number };
   wind: { speed: number };
@@ -7,10 +9,19 @@ interface WeatherResponse {
   message?: string;
 }
 
-export const fetchWeatherByCity = async (city: string): Promise<WeatherResponse> => {
-  const API_KEY = '7fcaf0b2625d5971e6386ed34438d53c';
-  const BASE_URL = 'https://api.openweathermap.org/data/2.5/weather';
+export const fetchWeatherByCoordinates = async (latitude: number,longitude: number): Promise<WeatherResponse> => {
+  const response = await fetch(
+    `${BASE_URL}?lat=${latitude}&lon=${longitude}&units=metric&appid=${API_KEY}`
+  );
 
+  if (!response.ok) {
+    throw new Error('Ошибка загрузки данных о погоде');
+  }
+
+  return (await response.json()) as WeatherResponse;
+};
+
+export const fetchWeatherByCity = async (city: string): Promise<WeatherResponse> => {
   try {
     const response = await fetch(`${BASE_URL}?q=${city}&appid=${API_KEY}&lang=ru`);
     const data = (await response.json()) as WeatherResponse;
