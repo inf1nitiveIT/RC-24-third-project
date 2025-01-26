@@ -1,15 +1,17 @@
-import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
-import CurrentWeatherSection from '../../components/current-weather-section/current-weather-section';
+import HeroSection from '../../components/hero-section/hero-section';
+import { WeatherResponse } from '../../api/current-weather-api/current-weather-api';
 
-function MainPage () {
+type MainPageProps = {
+  weather: WeatherResponse;
+};
+
+function MainPage ({weather}: MainPageProps) {
+
   return(
     <>
-      <Helmet>
-        <title>Pairwise</title>
-      </Helmet>
-      <Header />
-      <CurrentWeatherSection />
+      <Header weather={weather}/>
+      <HeroSection />
     </>
   );
 }
