@@ -3,12 +3,13 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainPage from '../../pages/main-page/main-page';
 import CurrentWeatherPage from '../../pages/current-weather-page/current-weather-page';
 import { useEffect, useState } from 'react';
-import { fetchWeatherByCoordinates, WeatherResponse } from '../../api/current-weather-api/current-weather-api';
+import { fetchWeatherByCoordinates } from '../../api/current-weather-api/current-weather-api';
+import { WeatherResponse } from '../../utils/types';
 
 function App() {
   const [latitude, setLatitude] = useState<number | null>(null);
   const [longitude, setLongitude] = useState<number | null>(null);
-  const [weather, setWeather] = useState<WeatherResponse | null>(null);
+  const [geoWeather, setGeoWeather] = useState<WeatherResponse | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -28,7 +29,7 @@ function App() {
 
           fetchWeatherByCoordinates(coords.latitude, coords.longitude)
             .then((weatherData) => {
-              setWeather(weatherData);
+              setGeoWeather(weatherData);
             })
             .catch((err) => {
               setError(err instanceof Error ? err.message : 'Ошибка загрузки данных о погоде.');
@@ -55,7 +56,7 @@ function App() {
     return <p>{error}</p>;
   }
 
-  if (!latitude || !longitude || !weather) {
+  if (!latitude || !longitude || !geoWeather) {
     return <p>Нет данных для отображения.</p>;
   }
 
@@ -63,8 +64,8 @@ function App() {
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
-          <Route path={'/'} element={<MainPage weather={weather} />}/>
-          <Route path="/weather/:city" element={<CurrentWeatherPage weather={weather}/>} />
+          <Route path={'/'} element={<MainPage geoWeather={geoWeather} />}/>
+          <Route path="/weather/:city" element={<CurrentWeatherPage geoWeather={geoWeather}/>} />
         </Routes>
       </BrowserRouter>
     </HelmetProvider>

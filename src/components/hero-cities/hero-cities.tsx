@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fetchWeatherByCity } from '../../api/current-weather-api/current-weather-api';
 import { Link } from 'react-router-dom';
-import { formatTemperature } from '../../utils/const';
+import { formatTemperature } from '../../utils/utils';
 
 interface CityWeather {
   city: string;
