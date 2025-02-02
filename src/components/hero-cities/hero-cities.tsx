@@ -6,6 +6,7 @@ import { formatTemperature } from '../../utils/utils';
 interface CityWeather {
   city: string;
   temp: number | null;
+  icon?: string;
   error?: string;
 }
 
@@ -27,7 +28,7 @@ function HeroCities({ cities, mainHeading, featuredCity }: HeroCitiesProps) {
           cities.map(async (city) => {
             try {
               const response = await fetchWeatherByCity(city);
-              return { city, temp: response.main.temp };
+              return { city, temp: response.main.temp, icon: `https://openweathermap.org/img/wn/${response.weather[0].icon}@2x.png`};
             } catch (err) {
               return { city, temp: null, error: 'N/A' };
             }
@@ -78,7 +79,7 @@ function HeroCities({ cities, mainHeading, featuredCity }: HeroCitiesProps) {
 
           )}
           <ul className="space-y-2">
-            {weatherData.filter(({ city }) => city.toLowerCase() !== featuredCity.toLowerCase()).map(({ city, temp, error }) => (
+            {weatherData.filter(({ city }) => city.toLowerCase() !== featuredCity.toLowerCase()).map(({ city, temp, error, icon }) => (
               <Link key={city} to={`/weather/${city}`} >
                 <li
                   className="flex justify-between items-center bg-white shadow rounded p-4 hover:bg-blue-50"
@@ -87,9 +88,10 @@ function HeroCities({ cities, mainHeading, featuredCity }: HeroCitiesProps) {
                   {error ? (
                     <span className="text-red-500 text-sm">{error}</span>
                   ) : (
-                    <span className="text-blue-500 ">
-                      {formatTemperature(temp)}
-                    </span>
+                    <div className="text-blue-500 flex items-center gap-2">
+                      <img src={icon} alt="Weather Icon" className="w-8 h-8" />
+                      <span className="min-w-[50px] text-right">{formatTemperature(temp)}</span>
+                    </div>
                   )}
                 </li>
               </Link>

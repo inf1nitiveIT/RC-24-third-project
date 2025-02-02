@@ -10,6 +10,9 @@ export default {
         'background-pattern': "url('/public/img/hero-background.jpg')"
       })
     },
+    fontFamily: {
+      jetBrains: ['Inter', 'sans-serif'],
+    },
   },
   plugins: [],
 }
