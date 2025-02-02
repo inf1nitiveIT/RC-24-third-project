@@ -24,7 +24,7 @@ function HoursForecastSection({ hoursWeather }: HoursForecastProps) {
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-6">
-      <h2 className="text-xl font-semibold mb-4">3-Hour Weather Forecast</h2>
+      <h2 className="text-2xl font-semibold mb-4">3-Hour Weather Forecast</h2>
       <div className="divide-y divide-gray-200">
         {forecastData.map((item) => (
           <div key={item.dt} className="py-4 flex justify-between items-center">

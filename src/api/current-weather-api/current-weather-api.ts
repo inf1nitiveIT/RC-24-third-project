@@ -6,7 +6,7 @@ export const fetchWeatherByCityPerHours = async (city: string): Promise<Forecast
   const response = await fetch(`${BASE_URL}forecast?q=${city}&units=metric&appid=${API_KEY}`);
 
   if (!response.ok) {
-    throw new Error('Ошибка загрузки данных о погоде');
+    throw new Error('Error loading weather data');
   }
 
   return (await response.json()) as ForecastResponse;
@@ -17,7 +17,7 @@ export const fetchWeatherByCoordinates = async (latitude: number,longitude: numb
   const response = await fetch(`${BASE_URL}weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${API_KEY}`);
 
   if (!response.ok) {
-    throw new Error('Ошибка загрузки данных о погоде');
+    throw new Error('Error loading weather data');
   }
 
   return (await response.json()) as WeatherResponse;
@@ -27,7 +27,7 @@ export const fetchWeatherByCity = async (city: string): Promise<WeatherResponse>
   const response = await fetch(`${BASE_URL}weather?q=${city}&appid=${API_KEY}`);
 
   if (!response.ok) {
-    throw new Error('Ошибка загрузки данных о погоде');
+    throw new Error('Error loading weather data');
   }
 
   return (await response.json()) as WeatherResponse;

@@ -8,7 +8,8 @@ const CITIES_OF_RUSSIA = ['Saint Petersburg', 'Sevastopol', 'Krasnodar', 'Vorone
 const CAPITAL_CITIES = ['Astana', 'Kyiv', 'Yerevan', 'Baku', 'Riga', 'Minsk'];
 const CITIES_OF_EUROPE = ['London', 'Paris', 'Barcelona', '​​Amsterdam', 'Prague', 'Berlin'];
 
-const FAVORITES_KEY = 'favoriteCities';
+const FAVORITES_KEY_FOR_LOCAL_STORAGE = 'favoriteCities';
+const WEATHER_SETTINGS_KEY_FOR_LOCAL_STORAGE = 'userSettings';
 
 
-export {API_KEY, BASE_URL, CITIES_OF_RUSSIA, CAPITAL_CITIES, CITIES_OF_EUROPE, FAVORITES_KEY, HERE_API_KEY};
+export {API_KEY, BASE_URL, CITIES_OF_RUSSIA, CAPITAL_CITIES, CITIES_OF_EUROPE, FAVORITES_KEY_FOR_LOCAL_STORAGE, HERE_API_KEY, WEATHER_SETTINGS_KEY_FOR_LOCAL_STORAGE};

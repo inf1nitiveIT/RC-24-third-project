@@ -13,5 +13,5 @@
 
 
 body {
-  @apply m-0 p-0 max-w-screen-xl mx-auto bg-[#eceef2] font-jetBrains
+  @apply m-0 p-0 max-w-screen-xl mx-auto bg-background-body bg-contain bg-fixed font-jetBrains
 }

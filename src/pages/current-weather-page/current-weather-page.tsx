@@ -10,10 +10,11 @@ import DaysForecastSection from '../../components/days-forecast/days-forecast-se
 
 
 type HeaderProps = {
-  geoWeather: WeatherResponse;
+  geoWeather: WeatherResponse | null;
+  geoDenied: boolean;
 }
 
-function CurrentWeatherPage ({geoWeather}: HeaderProps) {
+function CurrentWeatherPage ({geoWeather, geoDenied}: HeaderProps) {
   const { city } = useParams<{ city: string }>();
   const [weather, setWeather] = useState<WeatherResponse | null>(null);
   const [hoursWeather, setHoursWeather] = useState<ForecastResponse | null>(null);
@@ -64,7 +65,7 @@ function CurrentWeatherPage ({geoWeather}: HeaderProps) {
       <Helmet>
         <title>{city}</title>
       </Helmet>
-      <Header geoWeather={geoWeather}/>
+      <Header geoWeather={geoWeather} geoDenied={geoDenied}/>
       <div className="min-h-screen  text-gray-800 py-10 px-4">
         <div className="max-w-6xl mx-auto grid gap-10">
           <CurrentForecastSection weather={weather} />
