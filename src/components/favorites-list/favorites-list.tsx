@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FAVORITES_KEY } from '../../utils/const';
+import { FAVORITES_KEY_FOR_LOCAL_STORAGE } from '../../utils/const';
 import { FaTrash } from 'react-icons/fa';
 import { fetchWeatherByCity } from '../../api/current-weather-api/current-weather-api';
 import { formatTemperature } from '../../utils/utils';
@@ -37,7 +37,7 @@ function FavoritesList() {
   };
 
   useEffect(() => {
-    const storedFavorites = localStorage.getItem(FAVORITES_KEY);
+    const storedFavorites = localStorage.getItem(FAVORITES_KEY_FOR_LOCAL_STORAGE);
     if (storedFavorites) {
       const cities = JSON.parse(storedFavorites) as string[];
       setFavorites(cities);
@@ -48,7 +48,7 @@ function FavoritesList() {
   const onRemove = (city: string) => {
     const updatedFavorites = favorites.filter((fav) => fav !== city);
     setFavorites(updatedFavorites);
-    localStorage.setItem(FAVORITES_KEY, JSON.stringify(updatedFavorites));
+    localStorage.setItem(FAVORITES_KEY_FOR_LOCAL_STORAGE, JSON.stringify(updatedFavorites));
 
     setWeatherData((prev) => {
       const updatedWeather = { ...prev };

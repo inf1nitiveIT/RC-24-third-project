@@ -3,7 +3,7 @@ import { capitalizeFirstLetter, formatForCurrentDate, formatTemperature, getWind
 import { FaSun, FaTint, FaThermometerHalf, FaEye, FaCloud, FaArrowUp, FaCog } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 import SettingsModalWindow from '../settings-modal-window/settings-modal-window';
-import { FAVORITES_KEY } from '../../utils/const';
+import { FAVORITES_KEY_FOR_LOCAL_STORAGE, WEATHER_SETTINGS_KEY_FOR_LOCAL_STORAGE } from '../../utils/const';
 import { FaStar } from 'react-icons/fa';
 
 type CurrentForecastProps = {
@@ -11,7 +11,7 @@ type CurrentForecastProps = {
 }
 
 const loadInitialSettings = (): { [key: string]: boolean } => {
-  const savedSettings = localStorage.getItem('userSettings');
+  const savedSettings = localStorage.getItem(WEATHER_SETTINGS_KEY_FOR_LOCAL_STORAGE);
   return savedSettings ? (JSON.parse(savedSettings) as { [key: string]: boolean }) : {
     feelsLike: false,
     humidity: true,
@@ -25,7 +25,7 @@ function CurrentForecastSection({weather}: CurrentForecastProps) {
   const [favorites, setFavorites] = useState<string[]>([]);
 
   useEffect(() => {
-    const storedFavorites = localStorage.getItem(FAVORITES_KEY);
+    const storedFavorites = localStorage.getItem(FAVORITES_KEY_FOR_LOCAL_STORAGE);
     if (storedFavorites) {
       setFavorites(JSON.parse(storedFavorites) as string[]);
     }
@@ -40,12 +40,12 @@ function CurrentForecastSection({weather}: CurrentForecastProps) {
     }
 
     setFavorites(updatedFavorites);
-    localStorage.setItem(FAVORITES_KEY, JSON.stringify(updatedFavorites));
+    localStorage.setItem(FAVORITES_KEY_FOR_LOCAL_STORAGE, JSON.stringify(updatedFavorites));
   };
 
 
   useEffect(() => {
-    localStorage.setItem('userSettings', JSON.stringify(toggles));
+    localStorage.setItem(WEATHER_SETTINGS_KEY_FOR_LOCAL_STORAGE, JSON.stringify(toggles));
   }, [toggles]);
 
   const handleToggleChange = (id: string) => {
@@ -160,13 +160,9 @@ function CurrentForecastSection({weather}: CurrentForecastProps) {
                 </div>
               </div>
             </>)}
-
         </div>
-
       </div>
     </div>
-
-
   );
 }
 

@@ -7,7 +7,8 @@ export default {
   theme: {
     extend: {
       backgroundImage: theme => ({
-        'background-pattern': "url('/public/img/hero-background.jpg')"
+        'background-pattern': "url('/public/img/hero-background.jpg')",
+        'background-body': "url('/public/img/body-background.jpg')"
       })
     },
     fontFamily: {

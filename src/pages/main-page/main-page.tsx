@@ -4,17 +4,22 @@ import { WeatherResponse } from '../../utils/types';
 import HeroCities from '../../components/hero-cities/hero-cities';
 import { CITIES_OF_RUSSIA, CAPITAL_CITIES, CITIES_OF_EUROPE } from '../../utils/const';
 import FavoritesList from '../../components/favorites-list/favorites-list';
+import { Helmet } from 'react-helmet-async';
 
 
 type MainPageProps = {
-  geoWeather: WeatherResponse;
+  geoWeather: WeatherResponse | null;
+  geoDenied: boolean;
 };
 
 
-function MainPage ({geoWeather}: MainPageProps) {
+function MainPage ({geoWeather, geoDenied}: MainPageProps) {
   return(
     <>
-      <Header geoWeather={geoWeather}/>
+      <Helmet>
+        <title>D.Weather</title>
+      </Helmet>
+      <Header geoWeather={geoWeather} geoDenied={geoDenied}/>
       <HeroSection />
       <div className='mt-12'>
         <h1 className='text-center font-semibold text-3xl'>Popular cities</h1>
