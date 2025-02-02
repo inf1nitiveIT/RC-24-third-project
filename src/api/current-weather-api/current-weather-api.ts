@@ -32,5 +32,3 @@ export const fetchWeatherByCity = async (city: string): Promise<WeatherResponse>
 
   return (await response.json()) as WeatherResponse;
 };
-
-

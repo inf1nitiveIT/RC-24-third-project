@@ -10,11 +10,7 @@ function HoursForecastSection({ hoursWeather }: HoursForecastProps) {
     return null;
   }
   const forecastData = hoursWeather.list
-    .filter((item) => {
-      const forecastDate = new Date(item.dt * 1000);
-      const currentDate = new Date();
-      return forecastDate.getDate() === currentDate.getDate();
-    })
+
     .slice(0, 8)
     .map((item) => ({
       dt: item.dt,

@@ -2,11 +2,12 @@ import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
 import { ForecastResponse, WeatherResponse } from '../../utils/types';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { fetchWeatherByCity, fetchWeatherByCityPerHours} from '../../api/current-weather-api/current-weather-api';
 import CurrentForecastSection from '../../components/city-weather-page/current-forecast-section';
 import HoursForecastSection from '../../components/hours-forecast/hours-forecast-section';
 import DaysForecastSection from '../../components/days-forecast/days-forecast-section';
+
 
 type HeaderProps = {
   geoWeather: WeatherResponse;
@@ -33,7 +34,7 @@ function CurrentWeatherPage ({geoWeather}: HeaderProps) {
         setWeather(currentData);
         setHoursWeather(hoursData);
       } catch {
-        setError('Ошибка загрузки данных.');
+        setError('Error loading data for the selected city.');
       }
     };
 
@@ -43,7 +44,15 @@ function CurrentWeatherPage ({geoWeather}: HeaderProps) {
 
   if (error) {
     return (
-      <p>{error}</p>
+      <div className="flex flex-col gap-5 items-center justify-center min-h-screen">
+        <p className="text-center text-xl">{error}</p>
+        <Link to={'/'}>
+          <button className='bg-blue-500 rounded-xl p-4 font-semibold text-white hover:bg-blue-600 transition'>
+          Select another city
+          </button>
+        </Link>
+      </div>
+
     );
   }
   if (!weather) {
@@ -53,7 +62,7 @@ function CurrentWeatherPage ({geoWeather}: HeaderProps) {
   return(
     <>
       <Helmet>
-        <title>Pairwise</title>
+        <title>{city}</title>
       </Helmet>
       <Header geoWeather={geoWeather}/>
       <div className="min-h-screen  text-gray-800 py-10 px-4">
@@ -63,6 +72,7 @@ function CurrentWeatherPage ({geoWeather}: HeaderProps) {
           <DaysForecastSection hoursWeather={hoursWeather}/>
         </div>
       </div>
+
     </>
   );
 }

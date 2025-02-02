@@ -3,6 +3,8 @@ import { capitalizeFirstLetter, formatForCurrentDate, formatTemperature, getWind
 import { FaSun, FaTint, FaThermometerHalf, FaEye, FaCloud, FaArrowUp, FaCog } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 import SettingsModalWindow from '../settings-modal-window/settings-modal-window';
+import { FAVORITES_KEY } from '../../utils/const';
+import { FaStar } from 'react-icons/fa';
 
 type CurrentForecastProps = {
   weather: WeatherResponse;
@@ -20,6 +22,26 @@ const loadInitialSettings = (): { [key: string]: boolean } => {
 function CurrentForecastSection({weather}: CurrentForecastProps) {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [toggles, setToggles] = useState<{ [key: string]: boolean }>(loadInitialSettings);
+  const [favorites, setFavorites] = useState<string[]>([]);
+
+  useEffect(() => {
+    const storedFavorites = localStorage.getItem(FAVORITES_KEY);
+    if (storedFavorites) {
+      setFavorites(JSON.parse(storedFavorites) as string[]);
+    }
+  }, []);
+
+  const toggleFavorite = () => {
+    let updatedFavorites;
+    if (favorites.includes(weather.name)) {
+      updatedFavorites = favorites.filter((fav) => fav !== weather.name);
+    } else {
+      updatedFavorites = [...favorites, weather.name];
+    }
+
+    setFavorites(updatedFavorites);
+    localStorage.setItem(FAVORITES_KEY, JSON.stringify(updatedFavorites));
+  };
 
 
   useEffect(() => {
@@ -46,7 +68,15 @@ function CurrentForecastSection({weather}: CurrentForecastProps) {
       <div className="flex flex-col sm:flex-row sm:justify-between">
         {/* Left Section */}
         <div className="sm:w-2/5 text-center sm:text-left mb-6 sm:mb-0">
-          <h1 className="text-4xl font-semibold mb-2">{weather.name}</h1>
+          <div className='flex items-start '>
+            <h1 className="text-4xl font-semibold mb-2">{weather.name}</h1>
+            <button
+              className="px-4  text-yellow-500"
+              onClick={toggleFavorite}
+            >
+              <FaStar size={30} className={favorites.includes(weather.name) ? 'fill-amber-500' : 'fill-gray-400'} />
+            </button>
+          </div>
           <p className="text-sm text-gray-700">{formatForCurrentDate(weather.dt, weather.timezone)}</p>
           <div className="mt-4">
             <div className="flex flex-col items-center sm:items-start gap-2">
@@ -132,6 +162,7 @@ function CurrentForecastSection({weather}: CurrentForecastProps) {
             </>)}
 
         </div>
+
       </div>
     </div>
 

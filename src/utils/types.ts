@@ -99,4 +99,12 @@ export interface ForecastResponse {
   };
 }
 
-
+export interface HereGeocodeResponse {
+  items: {
+    address: {
+      city?: string;
+      countryCode: string;
+    };
+    title: string;
+  }[];
+}
