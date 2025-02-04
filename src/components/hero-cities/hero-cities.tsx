@@ -59,7 +59,7 @@ function HeroCities({ cities, mainHeading, featuredCity }: HeroCitiesProps) {
             <Link to={`weather/${featuredCity}`} className="group">
               <div className="relative overflow-hidden">
                 <img
-                  src={`/public/img/${featuredCity}_background.jpeg`}
+                  src={`/RC-24-third-project/img/${featuredCity}-background.jpeg`}
                   alt={featuredCity}
                   className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
                 />

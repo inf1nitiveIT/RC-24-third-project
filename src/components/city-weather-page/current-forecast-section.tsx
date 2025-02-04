@@ -13,7 +13,7 @@ type CurrentForecastProps = {
 const loadInitialSettings = (): { [key: string]: boolean } => {
   const savedSettings = localStorage.getItem(WEATHER_SETTINGS_KEY_FOR_LOCAL_STORAGE);
   return savedSettings ? (JSON.parse(savedSettings) as { [key: string]: boolean }) : {
-    feelsLike: false,
+    feelsLike: true,
     humidity: true,
     sunrise: false,
   };

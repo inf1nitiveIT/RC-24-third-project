@@ -1,5 +1,5 @@
 import { HelmetProvider } from 'react-helmet-async';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import MainPage from '../../pages/main-page/main-page';
 import CurrentWeatherPage from '../../pages/current-weather-page/current-weather-page';
 import { useEffect, useState } from 'react';
@@ -37,12 +37,12 @@ function App() {
 
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      <Router>
         <Routes>
           <Route path={'/'} element={<MainPage geoWeather={geoWeather} geoDenied={geoDenied} />}/>
           <Route path="/weather/:city" element={<CurrentWeatherPage geoWeather={geoWeather} geoDenied={geoDenied}/>} />
         </Routes>
-      </BrowserRouter>
+      </Router>
     </HelmetProvider>
   );
 }
