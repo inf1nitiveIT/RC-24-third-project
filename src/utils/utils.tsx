@@ -1,6 +1,13 @@
 import { FaArrowUp } from 'react-icons/fa';
 
-const formatTemperature = (temp: number | null): string => temp !== null ? `${(temp - 273).toFixed(0)}°C` : 'N/A';
+const formatTemperature = (temp: number | null): string => {
+  if (temp === null) {
+    return 'N/A';
+  }
+
+  const formattedTemp = (temp - 273).toFixed(0);
+  return formattedTemp === '-0' ? '0°C' : `${formattedTemp}°C`;
+};
 
 const formatForCurrentDate = (dt: number, timezone: number): string => {
   const localDate = new Date((dt + timezone) * 1000);

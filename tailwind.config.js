@@ -12,7 +12,7 @@ export default {
       })
     },
     fontFamily: {
-      jetBrains: ['Inter', 'sans-serif'],
+      jetBrains: ["'JetBrains Mono'", "monospace"]  ,
     },
   },
   plugins: [],
