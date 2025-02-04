@@ -19,7 +19,7 @@
 ## 📦 Установка и запуск
 
 ```sh
-git clone https://https://github.com/inf1nitiveIT/RC-24-third-project.git
-cd RC-24-third-project
+git clone github.com/your-username/your-project.git
+cd your-project
 npm install
-npm run dev
+npm start  # Запускает приложение (Vite)
