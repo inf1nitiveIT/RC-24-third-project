@@ -4,7 +4,7 @@ import { ForecastResponse, WeatherResponse } from '../../utils/types';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { fetchWeatherByCity, fetchWeatherByCityPerHours} from '../../api/current-weather-api/current-weather-api';
-import CurrentForecastSection from '../../components/city-weather-page/current-forecast-section';
+import CurrentForecastSection from '../../components/current-forecast-section/current-forecast-section';
 import HoursForecastSection from '../../components/hours-forecast/hours-forecast-section';
 import DaysForecastSection from '../../components/days-forecast/days-forecast-section';
 
