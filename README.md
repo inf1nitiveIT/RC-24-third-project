@@ -15,6 +15,7 @@
 - ⚛️ React + TypeScript
 - 🎨 Tailwind CSS
 - 🔥 OpenWeather API
+- 🔍 Here API
 
 ## 📦 Установка и запуск
 
